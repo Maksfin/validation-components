@@ -9,23 +9,30 @@ html(lang="en")
     title Portfolio | main page
   body
     .wrapper
+      //- nav.nav
+      //-   ul.nav__list.nav__list-header
+      //-     - var menu = [['Главная', '#about'], ['Обо мне', '#123']];
+      //-     each item in menu
+      //-       li.nav__item
+      //-         a(href=`${item[1]}`).nav__link #{item[0]}
+
       .main-content
-        section.welcome-section
-          section.parallax
-            .parallax__layer(data-speed="0.1")
-              +image('content/Sky.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.25")
-              +image('content/Mountain.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.35")
-              +image('content/Baloon.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.38")
-              +image('content/Cloud.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.45")
-              +image('content/Man.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.48")
-              +image('content/Mountain1.png', 'parallax__image', "горный пейзаж")
-            .parallax__layer(data-speed="0.50")
-              +image('content/White.png', 'parallax__image', "горный пейзаж")
+        .welcome-section
+            .parallax.welcome-section__parallax
+              .parallax__layer(data-speed="0.1")
+                +image('content/Sky.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.25")
+                +image('content/Mountain.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.35")
+                +image('content/Baloon.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.38")
+                +image('content/Cloud.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.45")
+                +image('content/Man.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.48")
+                +image('content/Mountain1.png', 'parallax__image', "горный пейзаж")
+              .parallax__layer(data-speed="0.50")
+                +image('content/White.png', 'parallax__image', "горный пейзаж")
             section.main-section
               .container
                 .mycontainer
@@ -73,15 +80,15 @@ html(lang="en")
                       span.information__desc-point__name Резе Татьяна 
                       span.information__desc-point-text Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
                     p.information__desc-remark Этот сайт я сделала в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
-            .triangles
-              svg.triangles__item.trianles__item--left(viewBox="0 0 1000 100" preserveAspectRatio="none")
-                polygon(
-                  points="0,0 0,100 1000,100"
-                )
-              svg.triangles__item.triangles__item--right(viewBox="0 0 1000 100" preserveAspectRatio="none")
-                polygon(
-                  points="0,100 1000,100 1000,0"
-                )
+        .triangles
+            svg.triangles__item.trianles__item--left(viewBox="0 0 1000 100" preserveAspectRatio="none")
+              polygon(
+                points="0,0 0,100 1000,100"
+              )
+            svg.triangles__item.triangles__item--right(viewBox="0 0 1000 100" preserveAspectRatio="none")
+              polygon(
+                points="0,100 1000,100 1000,0"
+              )
         section.good-section
           .container
             .good-desc
@@ -141,18 +148,29 @@ html(lang="en")
                 polygon(
                   points="0,0 1000,100 1000,0"
               )
-          section.review-section
+
+          section.review-section#reviews
+            //- .parallax
+            //-   .parallax__layer(data-speed="0.1")
+            //-     +image('content/Sky.png', 'parallax__image', "горный пейзаж")
+            //-   .parallax__layer(data-speed="0.25")
+            //-     +image('content/Mountain.png', 'parallax__image', "горный пейзаж")
+            //-   .parallax__layer(data-speed="0.35")
+            //-     +image('content/Mountain1.png', 'parallax__image', "горный пейзаж")
+              
             .container.conteiner-review
               .review-section__roll
                 h2.review-section__roll-title Что обо мне говорят
+
                 .review__scroll
-                  button.slaider__scroll-prev
+                  button.slaider__scroll-prev(@click="previous()")
                     +icon('arrow-down', 'scroll-prev__icon')
-                  button.slaider__scroll-next
+                  button.slaider__scroll-next(@click="next()")
                     +icon('arrow-down', 'scroll-next__icon')
+
               .review-section__content
-                ul.review-section__list
-                  li.review-section__item
+                flickity(ref="flickity" :options="flickityOptions").review-section__list
+                  .review-section__item.carousel-cell
                     +icon('quote', 'quote-class')
                     .review-section__desc
                       article.review-section__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
@@ -162,7 +180,7 @@ html(lang="en")
                         .review-sub__text
                           span.review-sub__text-name Ковальчук Дмитрий
                           span.review-sub__text-job Основатель Loftschool
-                  li.review-section__item
+                  .review-section__item.carousel-cell
                     +icon('quote', 'quote-class')
                     .review-section__desc
                       article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
@@ -172,6 +190,69 @@ html(lang="en")
                         .review-sub__text
                           span.review-sub__text-name Владимир Сабанцев
                           span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+                  .review-section__item.carousel-cell
+                    +icon('quote', 'quote-class')
+                    .review-section__desc
+                      article.review-section__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах.
+                      .review-sub
+                        .review-sub__icon
+                          +image('content/sabancev.jpg', 'review-ipg', "аватар")
+                        .review-sub__text
+                          span.review-sub__text-name Владимир Сабанцев
+                          span.review-sub__text-job Преподаватель
+
+
+
           section.contact-section
             .container
               h2.contact-section__title Связаться со мной

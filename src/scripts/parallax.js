@@ -1,19 +1,25 @@
-const parallax = document.querySelector('.parallax');
-const layers = parallax.children;
+const parallax = document.querySelectorAll('.parallax');
+// const layers = parallax.children;
 
-function moveLayersDependsOnScroll(wScroll){
 
-    Array.from(layers).forEach(layer=>{
+function moveLayersDependsOnScroll(wScroll, layers) {
+    Array.from(layers).forEach(layer => {
 
         const divider = layer.dataset.speed;
-        const strafe = wScroll * divider / 10;
+        const strafe = wScroll * divider / 30;
 
-        layer.style.transform = `transleteY(-${strafe}%)`;
+        layer.style.transform = `translateY(-${strafe}%)`;
     });
 }
 
-window.addEventListener('scroll', e=>{
-    const wScroll = window.pageYOffset;
-    moveLayersDependsOnScroll(wScroll);
+const windowWidth = document.body.clientWidth;
 
-});
+if (windowWidth > 767) {
+    window.addEventListener('scroll', e => {
+        const wScroll = window.pageYOffset;
+
+        Array.from(parallax).forEach(paral => {
+            moveLayersDependsOnScroll(wScroll, paral.children);
+        });
+    });
+}

@@ -45,8 +45,7 @@ module.exports = (env, argv) => {
 
   const svg = {
     test: /\.svg$/,
-    use: [
-      {
+    use: [{
         loader: "svg-sprite-loader",
         options: {
           extract: true,
@@ -57,8 +56,9 @@ module.exports = (env, argv) => {
       {
         loader: "svgo-loader",
         options: {
-          plugins: [
-            { removeTitle: true },
+          plugins: [{
+              removeTitle: true
+            },
             {
               removeAttrs: {
                 attrs: "(fill|stroke)"
@@ -72,8 +72,7 @@ module.exports = (env, argv) => {
 
   const pug = {
     test: /\.pug$/,
-    oneOf: [
-      {
+    oneOf: [{
         resourceQuery: /^\?vue/,
         use: ["pug-plain-loader"]
       },
@@ -86,7 +85,7 @@ module.exports = (env, argv) => {
   const config = {
     entry: {
       main: "./src/main.js",
-      admin: "./src/admin/main.js"
+      admin: ["@babel/polyfill", "./src/admin/main.js"]
     },
     output: {
       path: path.resolve(__dirname, "./dist"),
@@ -122,7 +121,9 @@ module.exports = (env, argv) => {
         filename: "admin/index.html",
         chunks: ["admin"]
       }),
-      new SpriteLoaderPlugin({ plainSprite: true }),
+      new SpriteLoaderPlugin({
+        plainSprite: true
+      }),
       new VueLoaderPlugin()
     ],
     devtool: "#eval-source-map"
